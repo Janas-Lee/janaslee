@@ -1,0 +1,20 @@
+body {
+  background-color: #f0f0cc;
+  color : #000000; 
+  padding: 5px;
+}
+* { box-sizing: border-box; }
+h1.j {
+    color: blue;
+    font-size: 43px;	
+}
+
+.fs24{font-size:24px;color:#dd8833;}
+.fs23{font-size:22px;}
+.fs20{font-size:20px;color:#dd9933;}
+.fs19{font-size:19px;}
+.fs18{font-size:18px;color:#dd8833;}
+.fs17{font-size:17px;}
+.fs16{font-size:16px;color:#dd8844;} 
+.fs15{font-size:15px;}
+.fs14{font-size:14px;color:#dd8844;} 	  
