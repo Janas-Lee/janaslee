@@ -1,0 +1,41 @@
+﻿<h2>序</h2>
+<p>
+雖然Android選用 Java 來當成開發語言，可是實際上也只是擷取了Java語言中有關的流程控制及資料處理等部份來使用而已，並不是全盤的採用。這主要是因為當初Android裝置實在是無法與真正的電腦比。由於硬體規格的限制，Android 避開了Java重量級的圖形操作介面及繪圖函數庫等等，而自行開發更適合行動裝置使用的套件。關於 Android 的圖形操作介面，市面上已經有太多的書籍著墨在這上面了，所以我們只會討論繪圖函數庫部分。
+</p>
+<p>
+Android 目前提供了兩種繪圖函數庫來供開發者選用，分別是Canvas API 及OpenGL ES。這兩組 API 都有提供動畫的功能，主要的區別為對 2 D 與 3D 的支援程度不同。大致說明如下:
+</p>
+<h3>Canvas API</h3>
+<p>
+如果你所要開發的 App 不是對聲光效果要求極高的3D動畫手機遊戲，純粹只是要讓App有些與眾不同的美工元素，那這個較容易上手的繪圖的函數庫應個就是您的最佳選擇。其實Google對於這組繪圖函數庫並沒有一個正式的名稱，只因為其用來繪圖的主要物件名稱就叫做 Canvas，所以大部分的人就直接將其稱為Android Canvas API。其套件名稱為 android.graphics，所以程式撰寫時要加上 import android.graphics. * 的指令。<br>
+Canvas API是個極有效率繪圖函數庫，主要應用在 2 D 繪圖及動畫。所以相較於專精3D繪圖的 OpenGL ES 來說 Canvas API算是個簡單易上手的 API。不過不要因此就小看Canvas API，這組 API 可不是那種僅僅只是提供了繪製文字、線條，方塊等等基本功能的玩具級 API，而是一組具有完整繪圖功能的的 API。此外由於Canvas API不需處理3D資料，且在Android 3.0之後又新增了硬體加速的功能，所以Canvas API有極高的執行效率，就算用來開發一款類似"超級瑪利歐"的遊戲都沒甚麼問題。
+</p>
+<h3>OpenGL ES</h3>
+<p>
+OpenGL ES 是Khronos集團專為嵌入式裝置所打造的 2D 及 3D 繪圖引擎，這是一組具備硬體加速的功能的高效能 API。OpenGL ES 可說是 OpenGL 的簡化版本，其名稱中的 ES 乃是 Embedded System 的縮寫。OpenGL ES 應用的範圍極廣，在多種嵌入式平台上都可發現其蹤跡，包括 Android 及 iOS 裝置等等。而在 Android 上的版本更是同時提供了 Java 及 C/C++ 兩種程式語言的 API，所以不管是用 Android SDK 或 NDK 都可用來開發具備OpenGL ES功能的 App。
+</p>
+<p>
+<h2>對本書讀者群的期望</h2>
+<p>
+本書是專為有興趣學習如何使用 Android 繪圖功能的讀者所撰寫的。因此我們會期望讀者能夠有一些 Java 的知識及 Android SDK 的使用經驗。此外我們些希望讀者已經具備 Android 開發的基本觀念，例如Activities、Views 等元件的使用方式，並且熟悉如何測試自己所設計的 Android App。<br>
+本書中使用許多的程式範例來展示如何繪製基本圖形，解釋座標及位移的基本觀念，並對兩種常用來設計具多執行緒能力繪圖程式的開發模式加以探討。
+</p>
+
+<h2>Contents Overview</h2>
+<p>
+<strong>第一章 Canvas API 簡介。</strong>本章簡單的描述 Canvas API 的基本作用，介紹這組 API 中最常用到的幾個類別，例如: Canvas、Paint、Path、Typeface 及Matrix 等等。此外也會稍微聊到邏輯座標及裝置座標之間的差異。在實作部分則是提供了一個簡單的範例來顯示Android裝置上的螢幕可供程式繪圖使用的尺寸大小。<br><br>
+<strong>第二章 座標系統。</strong>在這一章我們會認識到幾個 Android 2D 繪圖常會用到的幾個座標系統，例如笛卡爾座標(Cartesian coordinate)、裝置座標(device coordinate)、邏輯座標(logical coordinate)等等。並且會帶出全域座標(global coordinate)及區域座標(local coordinate)的觀念。<br><br>
+<strong>第三章 基本圖形。</strong>本章會探討直線(line)及路徑(path)這兩個基本圖形(Drawing Primitives)的屬性，例如colors、paint styles、cap、join types 以及 dash path effects 等等的作用。<br><br>
+<strong>第四章 文字的處理。</strong>這章主要是探討 Canvas API 中有關於文字的顯示方式。我們將會學到如何選用不同的字體，如何指定文字的排列與對齊格式，以及如何設定文字的 size、color、shadow 等的屬性。<br><br>
+<strong>第五章 矩形。</strong>這章會練習矩形(rectangle)的繪製，並將其實際應用在 bar chart 的製作上。<br><br>
+<strong>第六章 圓形、橢圓及弧形。</strong>在這一章中會學到有關於圓形(circle)、卵形(oval)及弧形(arc)的繪製方式。並將其實際應用在統計圖表或進度表的繪製上。<br><br>
+<strong>第七章 漸層。</strong>這一章主要探討漸層的繪製方式及其應用。<br><br>
+<strong>第八章 座標轉換。</strong>這章主要討論座標轉變 (coordinate transformation)背後所使用到的數學觀念，以及在不使用矩陣(matrix)的狀況下如何做座標轉變。我們會使用兩個簡單的圖形來展示座標如何轉變。<br><br>
+<strong>第九章 轉變矩陣。</strong>在這一章我們將學習轉變矩陣(transformation matrices)的用法。而在我們在上一章中所做了兩個範例也會修改成使用轉變矩陣來處理座標轉變的步驟。此外我們也會說明為何不建議更改目前轉變矩陣(current transformation matrix, CTM)。<br><br>
+<strong>第十章 多執行緒。</strong>在這章裡我們會討論撰寫 Android 繪圖程式時，常會用到的兩種多執行緒(multithreaded)實作方式。第一種方式採用 Handler 及 Message 這兩個類別來作為執行緒之間的溝通管道。第二種方式則是使用了 SurfaceView 這個類別來實作多執行緒繪圖。當然我們之前所做的股市圖(stock chart)範例也會修改成使用這兩種實作方式的多執行緒版本。<br>
+</p>
+
+<h2>聯繫資訊:</h2>
+<p>
+如果你發現我們的文字描述或者是範例程式碼有任何需要修正之處，或者是有其他的建議事項。歡迎與作者聯繫。<br>
+</p>

@@ -1,0 +1,146 @@
+﻿ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Canvas API</title>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="canvas.css">
+</head>
+<body>
+<table>
+ <tr>
+  <td><a href="http://www.janaslee.com"><img src="../../img/janaslee_s.png"></a></td>
+  <td><a href="../../index.htm"><h2 style="font-family:微軟正黑體">Janas Lee 的網站</h2></a></td>
+ </tr>
+</table>
+<h1>Android Canvas API 2D 繪圖學習筆記</h1>
+本網站目前尚在開發中，資訊不周之處請多包涵<br>
+這裡的內容主要改寫自 Yevgen Karpenko 的著作 Android 2D Graphics With Canvas API<br>
+如需參考原書請自行上網購買。<br>
+購書 : 1.<a href="https://www.tenlong.com.tw/items/149221454X?item_id=887971" target="_empty">天瓏網路書局</a>
+2.<a href="https://www.amazon.com/Android-2D-Graphics-Canvas-API/dp/149221454X/ref=sr_1_3?ie=UTF8&qid=1483435291&sr=8-3&keywords=android+canvas" target="_empty">Amazon</a>
+<hr>
+<button id="btnCov" onclick="showContains('c')">封面</button>
+<button id="btnCon" onclick="showContains('0')">目錄</button>
+<button id="btn000" onclick="showContains('p')">序</button>
+<button id="btn001" onclick="showContains('1')">第一章</button>
+<button id="btn002" onclick="showContains('2')">第二章</button>
+<button id="btn003" onclick="showContains('3')">第三章</button>
+<button id="btn004" onclick="showContains('4')">第四章</button>
+<button id="btn005" onclick="showContains('5')">第五章</button>
+<button id="btn006" onclick="showContains('6')">第六章</button>
+<button id="btn007" onclick="showContains('7')">第七章</button>
+<button id="btn008" onclick="showContains('8')">第八章</button>
+<button id="btn009" onclick="showContains('9')">第九章</button>
+<button id="btn010" onclick="showContains('10')">第十章</button>
+<button id="btnIdx" onclick="showContains('i')">Index</button>
+<button id="btnGlo" onclick="showContains('g')">Glossary</button>
+<button onclick="showContains('b')">封底</button>
+<hr>
+<div id="p0"></div>
+<div id = "cont"></div>
+<hr>
+<br>
+<div id="p1"></div>
+參考書籍 : Android 2D Graphics With Canvas API<br>
+原作者 : Yevgen Karpenko<br>
+原書的範例是使用 Eclipse 為開發工具，在這裡會將範例改成用 Android Studio來供來賓下載。<br>此外原書中原本不是用來當作範例的插圖也會一併附上對應的程式碼來供讀者學習。<br>
+不過這些額外的程式碼需要讀者自行閱讀，本網站目前尚無人力增加這些額外的說明內容。<br>
+</body>
+<script src="ac.js"></script>
+<script>
+
+(function () { 
+ //document.getElementById("p1").innerHTML = getPages(6,210);
+})();
+
+function showContains(ch){  
+  document.getElementById("p0").innerHTML = "";
+  var greeting = "";
+  switch(ch) {
+	case 'c':
+	    setCont('cover.htm');
+	break;	  
+	case 'p':
+	    setCont('preface.htm');
+	break;
+	case '0':
+	    greeting = "<button onclick=\"chJpg('i')\">i</button>"; 
+        greeting += "<button onclick=\"chJpg('ii')\">ii</button>"; 
+        greeting += "<button onclick=\"chJpg('iii')\">iii</button>"; 
+        greeting += "<button onclick=\"chJpg('iv')\">iv</button>"; 
+        greeting += "<button onclick=\"chJpg('v')\">v</button>"; 
+        document.getElementById("p0").innerHTML = greeting;
+	    document.getElementById("cont").innerHTML = "";
+	break;
+	case '1':
+	    setCont('ch01.htm');		
+	break;
+	case '2':
+	    setCont('ch02.htm');
+		document.getElementById("p0").innerHTML = getPages(13,16);
+	break;
+	case '3':
+	    setCont('ch03.htm');
+		document.getElementById("p0").innerHTML = getPages(17,40);
+	break;
+	case '4':
+	    setCont('ch04.htm');
+		document.getElementById("p0").innerHTML = getPages(41,66);
+	break;
+	case '5':
+	    setCont('ch05.htm');
+		document.getElementById("p0").innerHTML = getPages(67,80);
+	break;
+	case '6':
+	    setCont('ch06.htm');
+		document.getElementById("p0").innerHTML = getPages(81,96);
+	break;
+	case '7':
+	    setCont('ch07.htm');
+		document.getElementById("p0").innerHTML = getPages(97,118);
+	break;
+	case '8':
+	    setCont('ch08.htm');
+		document.getElementById("p0").innerHTML = getPages(119,142);
+	break;
+	case '9':
+	    setCont('ch09.htm');
+		document.getElementById("p0").innerHTML = getPages(143,164);
+	break;
+	case '10':
+	    setCont('ch10.htm');
+		document.getElementById("p0").innerHTML = getPages(165,207);
+	break;
+	case 'i':
+        document.getElementById("cont").innerHTML = "";	
+		document.getElementById("p0").innerHTML = getPages(208,210);
+	break;
+	case 'g':
+        setCont('glossary.htm');		
+	break;
+	case 'b':
+	    chJpg('buttom');
+	break;
+	default:
+	  
+  } 
+}
+
+
+function getPages(s,e){
+ var greeting = "";
+ var i =0;
+ var a ="";
+ for(i=s; i < (e+1); i++){
+    if(i < 10){ a = "00" + i; }
+	else if(i < 100){ a = "0" + i; }
+	else{a = "" + i;}    
+	greeting += "<button onclick='chJpg(\"c"+ a + "\")'>"+ a +"</button>";
+	if((i-s+1)%15==0){greeting += "<br>"; }
+ }
+ return greeting;
+}
+
+</script>
+</html>

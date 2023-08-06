@@ -1,0 +1,48 @@
+﻿ <!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+ <title>Chapter 02</title>
+ <meta charset="utf-8">
+ <meta name="generator" content="textpad 4.6">
+ <meta name="author" content="Janas Lee">
+ <meta name="keywords" content="Android, Canvas 2D, 繪圖">
+ <meta name="description" content="Janas Lee 的學習筆記">
+</head>
+<body>
+<h2>第二章 座標系統</h2>
+<p>
+對使用Illustrator 或 Corel Draw這類現成電腦繪圖(computer graphics)軟體的美工人員來說，座標系統轉換(conversion)這個議題似乎不太可能會遇到，因為這些麻煩事通常已經由程式設計師代為解決了。所以大多數的美工人員可能從來都沒有意識到電腦螢幕座標的Y軸跟我們在數學課所學的座標的Y軸方向其實是相反的。<br>
+座標系統(coordinate system)之間的轉換是學習電腦繪圖程式設計無法避免的一個基本議題。因為不管你要繪製什麼，只要座標不對圖形就無法正常顯示在螢幕上。因此座標轉換可說是初學電腦繪圖程式設計最先要理解的觀念，而身為 Android 程式設計師的您，除了要知道如何處裡螢幕座標與數學座標的轉換外，還要再加上與之前提過的邏輯座標之間的轉換。<br>
+簡單的說，座標系統就是一種描述一個點甚至是一個物件在二維平面或三維空間所在位置的方法。相信大家在學校的數學課應該都已經學會點、線、面的座標描述方式。後面的描述應該不至於覺得太過抽象。
+</p>
+<h3>2.1 笛卡爾座標系統</h3>
+<p>
+笛卡爾座標系統(Cartesian Coordinate System)就是我們在學校數學課時所學的直角座標系統(rectangular coordinate system)，這可說是幾何學(geometry)及電腦繪圖(computer graphics)的基礎。笛卡爾座標系統使用兩條成直角相交的參考線(perpendicular reference lines)來做為座標軸(coordinate axes)，水平線稱為 X 軸(X axis)，垂直線稱為 Y軸(Y axis)。兩條軸線的交會點稱為原點(origin)。<br>
+座標用來描述平面上某個點的所在位置，其格式為(x,y)，用小括號將兩個數字圍起來並以逗點分隔。座標的第一個數字稱為 X 座標，用來表示沿著 X 軸從原點移動的距離，第二個數字稱為 Y 座標，用來表示沿著 Y 軸從原點移動的距離。X 座標在原點右邊的為正數，在原點左邊的為負數；Y 座標在原點上方的為正數，在原點下方的為負數。例如某個點的座標為 (2,3) 表示位於原點右邊2單位，上方3單位之處。Figure 2-1 為笛卡爾座標中兩個點的座標及其位置，Point A 在 (-0.7, -0.5)，Point B 在 (0.5, 1)。
+</p>
+<img class="fig" src="jpg/Figure2_1.png" alt="Figure2-1" ><br>
+Figure2-1<br>
+<h3>2.2 裝置或顯示座標系統</h3>
+<p>
+電腦、手機或平板等等所用的螢幕都屬於光柵設備(raster devices)，也就是說這類的裝置的顯示畫面是由許許多多各自獨立的像素(pixel)所組成的，這也是螢幕上可以控制顏色與亮度的最小單位，pixel這個字是從 picture及element這兩個單字合併而來，用來表示”圖像元素”的概念。單位面積內的pixel越多代表解析度越高，所顯示的影像就越細緻，以目前主流的Full HD螢幕來說，其規格為 1920 * 1080，所以這種螢幕上就有2073600各自獨立的pixel，每一個pixel的顏色與亮度都可以不同。如果將螢幕局部放大就可看出每個像素通常由三個小點或三個小方塊所組成，這三個小點分別對應到光的三原色---紅(red)、綠(green)、藍(blue)。透過RGB三原色的強弱組合讓像素可以呈現不同的顏色與亮度。而螢幕的顯示區就是由pixel以二維格柵(two-dimensional grid)的方式所組成，例如 Figure 2-2 所示就是一個 1280 x 800 的螢幕 pixel 排列方式。
+</p>
+<img class="fig" src="jpg/Figure2_2.png" alt="Figure2-2" ><br>
+Figure2-2<br>
+<p>
+螢幕所使用的座標又稱為裝置座標系統(device coordinate system)，基本上這可以當成是一個以 pixel為距離單位的笛卡爾座標，不過有三個重大的差異必須要特別注意。第一個差異是裝置座標的原點(origin)改成固定放在左上角。第二個差異是 Y 軸的正負方向反轉，改成原點向下為正。第三個差異是裝置座標中X 軸與Y 軸的最大值直接受限於硬體裝置的規格。目前包括Android Canvas API在內的許多繪圖函數庫都是採用裝置座標來處理繪圖資料。Figure 2-3 使用裝置座標來表示一個1280 x 800 pixel的螢幕。
+</p>
+<img class="fig" src="jpg/Figure2_3.png" alt="Figure2-3" ><br>
+Figure2-3<br>
+<p>
+由於目前 Android 裝置的螢幕規格眾多，所以若是在程式中直接使用裝置座標系統會有個困擾，那就是無法預測將來 App 執行時所會遇到的螢幕規格。因為在某種解析度呈現完美的畫面，搬到另外一種解析度可能就慘不忍睹。例如在 Full HD 裝置上的所製作的圖像若不經過任何處理直接搬到 480x320 pixels結果可能只能看到一個角落。螢幕規格太多也是Android軟體開發過程中最令人苦惱之處。相較之下，其他的系統，例如 iOS的開發者就幸福多了，iPhone出了這麼多代，可是螢幕規格也不過十來種。
+</p>
+<h3>2.3 邏輯座標系統</h3>
+<p>
+邏輯座標系統( Logical coordinate system)是一種專供程式設計等等特定用途，與硬體裝置無關，採間接方式存取螢幕資訊的座標系統。基本上其底層還是笛卡爾座標系統，只不過座標的距離單位改用邏輯單位而非真實點數。邏輯座標的 X 軸與 Y 軸的邏輯單位可以是不同的。舉例來說，如果你想要繪製一個用來展現公司銷售狀況的業績圖，那水平的 X 軸可能就會以天為單位，而垂直的 Y 軸所用的單位可能就是銷售數字，如 Figure 2-4 所示。
+</p>
+<p></p>
+
+<img class="spage" src="jpg/c015.jpg" alt="page 015" ><br>
+<img class="spage" src="jpg/c016.jpg" alt="page 016" ><br>
+</body>
+</html>

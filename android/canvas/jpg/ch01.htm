@@ -1,0 +1,271 @@
+﻿ <!DOCTYPE html>
+<html>
+<head>
+ <title>Chpter 1</title>
+ <meta charset="utf-8">
+ <meta name="generator" content="textpad 4.6">
+ <meta name="author" content="Janas Lee">
+ <meta name="keywords" content="Android, Canvas 2D, 繪圖">
+ <meta name="description" content="Janas Lee 的學習筆記">
+</head>
+<body>
+<h2>第一章  Canvas API 簡介</h2>
+<p>
+就如同我在序文中所提過的，Google 並沒有給予android.graphics 套件中的類別一個正式的名稱。所以程式設計師們通常就稱之為 Canvas library 或是 Canvas API。所以在後續的內文中不管是 Canvas library 或是 Canvas API 我們指的都是同一組類別的集合。<br>
+Canvas API 是Android 內建的一組 2D 繪圖函式庫，雖然表面上看來 Canvas API 僅僅只提供了幾個繪製文字、線條、矩形、圓形等等基本圖形的方法。事實上藉由這些基本圖形的排列組合，我們就可在 Android 的顯示畫面上繪製各式各樣的複雜圖形。Canvas API 中所有的類別都集中放置在 android.graphics 套件之下，其中有幾個特別重要的類別我們必須先介紹，例如 Canvas、Paint、Path 等等。在認識了這幾個類別後會帶大家實作一個顯示 Canvas 繪圖區域尺寸的範例。<br>
+</p>
+<h3>1.1 Canvas</h3>
+<p>
+記得唸小學時每次上美術課，老師第一件事就是確認我們有沒有帶圖畫紙。因為不管是筆還是顏料都可以跟其他同學借或者是共用。唯獨圖畫紙是無法共用的，沒帶那基本上那一堂美術課就是浪費了。要使用 Android Canvas API，當然也必須要有個類似圖畫紙的物件來讓你將圖形繪製上去。而 Canvas 這個類別的定位就是 Android 的圖畫紙。有了 Canvas 物件實例(instance)後我們就可以利用其內建的一些 method 來讓將文字、線條、矩形、圓形等等基本圖形繪製在上面。取得 Canvas物件實例最簡單的方法就是直接複寫 View 中的 onDraw() method。程式碼如下所列:
+</p>
+<pre>
+  public class MyView extends View{
+    @Override
+    public void onDraw(Canvas canvas)
+    {
+      //...程式碼省略
+    }
+  }
+</pre>
+<p>
+細心的您可能已經注意到onDraw() 的參數就是個Canvas物件，所以你不用實做的步驟就可以直接取得Canvas物件實例。每當一個使用 View 來當顯示畫面的 App 被啟動時、螢幕方向改變時或者是有觸控的動作時，Android 都會重新呼叫這個 method 來更新螢幕的顯示內容。當然若您必須要在程式中強制更新螢幕內容時，也可透過呼叫invalidate() 或這是 postinvalidate() 這兩個 method 來達成目的。在 Android 系統中實際用來處理螢幕顯示物件幾乎都是繼承 View 這個類別而來。如果我們將Canvas比喻成圖畫紙的話，那 View 就相當於是放置圖畫紙的畫框了，所以我們才會將Canvas物件當參數傳入 View 類別的onDraw()中來進行實際的繪圖動作。
+</p>
+<h3>1.2 Paint</h3>
+<p>
+Paint 這個類別可用來指定繪圖基本元素的風格及顏色等等的資訊。Paint 內建了不少好用的 method讓我們在繪圖上更能得心應手，例如量測文字的尺寸大小等等。所有的繪圖 method都會使用 Paint類別來當參數，因此很多程式設計師們通常都會在 constructor 中先建立一些 Paint類別實例，然後在後續的 onDraw()中重複使用這些這些Paint類別實例。如下列程式碼所示:
+</p>
+<pre>
+ public class MyClass extends View {
+    private Paint paint;
+    public MyClass(Context context) {
+      super(context);
+      paint = new Paint();
+      paint.setColor(Color.BLACK);
+    }
+    @Override
+    public void onDraw(Canvas canvas) {
+      canvas.drawLine(10,10,100,100, paint);
+    }
+ }
+</pre>
+<h3>1.3 Path</h3>
+<p>
+Path 這個類別可用來繪製直線、曲線或者是其他圖形的外框。Path幾乎可以說是繪製其他更複雜圖形的基礎。我們可以將 Path 設定成開放或者是封閉，藉以構成特定的圖形。舉例來說，由三個點所組成的 Path 如果設定成開放，那就只是個曲折的線條，可是設定成封閉後就變成一個三角形了。通常為了讓繪圖的顯示速度更為流暢，我們往往會先將所需要 Path 實例都建立好，然後在 onDraw() 直接將所有現成的 Path 實例一起繪製上去。<br>
+簡單的Path 實例建立與繪製步驟如下程式碼所示:
+</p>
+<pre>
+  public void onDraw(Canvas canvas) {
+    Path path = new Path();
+    path.moveTo(10, 10);
+    path.lineTo(100, 100);
+    canvas.drawPath(path, paint);
+  }
+</pre>
+<h3>1.4 Typeface</h3>
+<p>Typeface 這個類別主要用來指定所使用的文字的外觀及字體(typeface)。以下的程式碼展示如何指定所用的字型為serif 粗體字。</p>
+<pre>
+  Typeface font = Typeface.create("serif", Typeface.Bold);
+</pre>
+<p>
+關於字型這個主題我們在第四章有更詳細的探討。
+</p>
+<h3>1.5 Matrix</h3>
+<p>
+Matrix 這個類別內含一個用來處理座標轉換的 3x3陣列(matrix)。<br>
+關於座標及座標轉換這個主題，本書後續的章節會有較詳細且實用的說明。第二章就會介紹一些常用座標的基本知識。而在第八章則會開始探討座標轉換的數學觀念及其實踐的步驟，讓您在不使用現成 Matrix 類別的狀況下也能做座標轉換。第九章則是介紹如何利用 Matrix 類別來實現座標轉換。
+</p>
+<h3>1.6 範例: CH01_Canvas</h3>
+<p>
+現在我們來實作一個簡單的App，這個 App 只是將 Android 裝置螢幕可供繪圖使用的View Size以長寬各有多少畫素的方式在螢幕的正中央顯示出來。
+如果您完全沒有任何的 Android 程式開發經驗，我們建議您先花點時間去學一些基本的知識再回頭來看本書。希望您至少已經學會如何建置 Android 的開發環境及撰寫幾個 Hello World 等級的 App。因為本書雖然定位是入門書籍，不過所指的是Android繪圖入門，而不是 Android 開發入門，所以並沒有包含這些程式開發的基礎內容。若有需要，請讀者自行參考其他入門書籍。
+</p>
+<h4>1.6.1 MainActivity</h4>
+<p>請執行 Android Studio，然後建立一個名為 CH01_Canvas 的專案。接著照著範例程式碼輸入內容後就可以進行測試。其中 package 及 activity 的命名可以依您的喜好自行變更，不見得非得要跟範例一模一樣才行。
+</p>
+程式碼:<br>
+<pre>
+  package com.janaslee.ch01_canvas;
+
+  import android.support.v7.app.AppCompatActivity;
+  import android.os.Bundle;
+
+  public class MainActivity extends AppCompatActivity {
+
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          //setContentView(R.layout.activity_main);
+          MyCanvas view = new MyCanvas(this);
+          this.setContentView(view);
+      }
+  }
+</pre>
+<p>
+這裡我們要做的事情很簡單，只是將程式碼中的
+</p>
+<pre>setContentView(R.layout.activity_main);</pre>
+改成
+<pre>MyCanvas view = new MyCanvas(this);</pre>
+<p>
+而已。<br>
+這行程式碼現在會出現錯誤訊息，因為MyCanvas 是我們接下來即將動手做的一個 Class，目前還不存在，所以 Android Studio 找不到。這行程式碼的作用是將 MainActivity 的顯示畫面改成我們自訂的 MyCanvas 實例。原本 MainActivity 的顯示畫面是activity_main.xml。
+</p>
+<h4>1.6.2 MyCanvas</h4>
+<p>
+接下來請新增一個名為 MyCanvas 的 Java Class，由於要拿來當顯示畫面，所以這個 Class 必須繼承 View，且需要複寫其中的幾個 method，如下所列:
+</p>
+程式碼:<br>
+<pre>
+package com.janaslee.ch01_canvas;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
+
+public class MyCanvas extends View {
+    private int width;
+    private int height;
+    private Paint paint;
+    public MyCanvas(Context context) {
+        super(context);
+        setBackgroundColor(Color.WHITE);
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextAlign(Paint.Align.CENTER);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        width = w;
+        height =h;
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        float textSize = Math.min(width, height) * 0.12f;
+        paint.setTextSize(textSize);
+        float x = width * 0.5f;
+        float y = height * 0.5f;
+        String str = "w=" + width + ", h=" + height;
+        canvas.drawText(str, x, y, paint);
+    }
+}
+</pre>
+<p>
+將這個 Class 存檔後，原本MainActivity 的錯誤訊息就會消失。
+</p>
+<h4>1.6.3 程式碼解說 : onSizeChange()</h4>
+<p>
+現在我們來看看這些程式碼的功用。首先是程式一開始所宣告的width 和 height兩個類別變數(class variables)，這用來存放目前螢幕上可用繪圖尺寸的寬度及高度各是多少像素(pixel)。<br>
+</p>
+<pre>
+private int width;
+private int height;
+...
+@Override
+protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    width = w;
+    height =h;
+}
+</pre>
+<p>
+其後有個名為 onSizeChanged() 的 method，這是覆寫自其父類別 View 的 method，所以要加上 @Override 的宣告。當 App 中的 View 類別剛被啟動時，這個 method 的內容就先會被執行一次，讓 App 能夠根據正確的尺寸來繪製畫面。接下會被當 Android 裝置螢幕的顯示尺寸有變動時，系統就會自動再次呼叫這個 method 來讓更新顯示的內容。最常見的狀況就是旋轉螢幕的情形，由於絕大多數的 Android 裝置都不採用正方形的螢幕，所以只要螢幕一旋轉，寬高尺寸就會變動，顯示的內容難免要跟著調整。<br>
+這個 method 的四個參數分別代表螢幕可繪圖區域的高度及高度的新舊值。目前我們只會用到新的值，所以這個 method 的程式碼內容就是將高度及高度的新值分別存到 width 和 height這兩個類別變數中。<br>
+其實 onSizeChanged() 是個處理與螢幕尺寸及顯示方向相關資料的好地方。許多的計算，例如物件座標轉換、位移、縮放等等都可集中在這裡先處理好。等真正繪圖時直接取用，這樣可讓繪圖過程更加流暢。不會有因為要等運算結果而出現停頓的狀況。
+</p>
+<h4>1.6.4程式碼解說: Paint</h4>
+<p>
+Paint 這個類別用來指定繪圖所用的顏色及筆觸型態等等資訊。你可以將其想像成我們在上真正美術課時時所用的畫筆及顏料的組合。我們可以用 new 指令來建立一個 Paint 的物件實例，然後再陸續的指定所要的顏色、字形、筆觸等等屬性。在本範例中我們僅僅只是指定了顏色、文字對齊方式及文字大小等三種屬性而已，事實上還有更多的屬性可以使用，在後面的章節會有更詳盡的介紹。
+</p>
+<pre>
+private Paint paint;
+...
+  paint = new Paint();
+  paint.setColor(Color.BLACK);
+  paint.setTextAlign(Paint.Align.CENTER);
+...
+  paint.setTextSize(textSize);
+</pre>
+<p>
+為了讓執行效率更佳，我們將宣告了一個名為 paint 的 Paint 實例，並將其放在 method 的外面，使其成為 MyCanvas中每一個 method 都能存取的類別變數(class variable)。然後在建構函數(constructor)中將paint 初始化而不是在 onDraw() 中初始化。之所以這樣做是因為若我們將物件的宣告及初始化的動作放在onDraw() 中，則每次畫面更新時，這些物件都要重新產生及初始化一次。這對行動裝置來說是很浪費資源的。在上面的程式碼中我們對 pain 設定了三個屬性，分別是將顏色指定成黑色，
+</p>
+<pre>
+  paint.setColor(Color.BLACK);
+</pre>
+<p>
+將文字對齊的方式指定為置中對齊，
+</p>
+<pre>
+  paint.setTextAlign(Paint.Align.CENTER);
+</pre>
+<p>
+以及設定文字的大小尺寸。
+</p>
+<pre>
+  paint.setTextSize(textSize);
+</pre>
+<p>
+</p>
+<h4>1.6.5程式碼解說: onDraw()</h4>
+<p>
+就繪圖而言onDraw()可說是 View 類別中最重要 method。從 method 前面的 @Override 宣告我們就可判定onDraw()也是從 View 類別中繼承覆寫而來。通常會在一些基礎類別就定義的 method 往往是Android作業系統會主動去呼叫的。這個 method 也不是例外，每當有必要更新顯示畫面的情況發生時，例如螢幕的方向改變、使用者有觸控的動作、有內容必須加入畫面或從畫面移除時，Android作業系統就會重新呼叫onDraw()。此外細心的您可能已經發現 onDraw() 的參數恰好就是個 Canvas 實例，這就表示Android 作業系統呼叫 onDraw() 就會順便將 Canvas實例傳入，讓您可以直接進行繪圖的動作。
+</p>
+<pre>
+@Override
+public void onDraw(Canvas canvas) {
+  float textSize = Math.min(width, height) * 0.12f;
+  paint.setTextSize(textSize);
+  float x = width * 0.5f;
+  float y = height * 0.5f;
+  String str = "w=" + width + ", h=" + height;
+  canvas.drawText(str, x, y, paint);
+}
+</pre>
+<p>
+我們使用 Canvas 類別的 drawText() 來將字串的內容繪製在畫面上。這個 method 的參數有四個，分別是所要顯示的字串、X軸及Y軸的座標及 paint 實例。通常我們會將所要的筆觸及顏色等等資料設定在paint 之中。
+canvas.drawText(str, x, y, paint);
+為了讓顯示畫面在各種裝置上都能夠看起來一致，我們會動態的計算繪圖所需的一些數值，比如文字的大小尺寸、X軸及Y軸的座標等等。首先我們先將文字的大小尺寸設定為畫面寬度的 12%。
+</p>
+<pre>
+ float textSize = width * 0.12f;
+</pre>
+<p>
+然後將顯示文字的X軸及Y軸的座標設為寬高的中間，也就是50%的位置。
+</p>
+<pre>
+ float x = width * 0.5f;
+ float y = height * 0.5f;
+</pre>
+<p>   
+之所以要這樣做是因為 Android 裝置的螢幕尺寸規格不一，從畫面不到兩吋的智慧型手錶到超過50吋的 Android TV都有，若是我們直接指定真實數字就有可能在某個裝置上看起來很完美的畫面換到另一個裝置上看起來卻慘不忍睹。這樣的作法其實已經是個簡單的座標轉換(coordinate transformation)了。<br>
+將寬度與高度的範圍定為 0% 到 100%(或者是 0 到 1)的做法就是邏輯座標系統(logical coordinate system)的運作方式。透過這種方式我們在程式設計時，就可以不用為實際執行App的裝置所用的螢幕尺寸而傷透腦筋了。用邏輯座標的方式將字體大小設定成寬度的12%(0.12)，當App真正被執行時會乘以由onSizeChange()所偵測到的實際寬度就可得到字體大小真實的尺寸了。同樣的顯示文字的X軸及Y軸邏輯座標設定為寬度與高度的50%(0.5)，當App真正被執行時就可算出裝置螢幕正中間的真實座標。而這樣的動作就稱為邏輯座標對裝置座標的轉換，這個動作的名稱乍看之下挺唬人的，不過實際上也就是將百分比(percentages)乘上像素(pixels)而已。<br>
+座標轉換的內涵當然不會這麼陽春，後續的章節我們會對幾種常用座標轉換做更進一步的介紹。
+</p>
+<h4>1.6.6 螢幕截圖</h4>
+<p>
+現在請執行這個App，您就可以在螢幕中央看到目前所用的 Android 裝置螢幕可供程式繪圖使用的寬度及高度分別是多少像素。這組數字可能與您目前所用裝置硬體規格書上所記載的數字稍有差異，不用驚訝這是正常的現象。因為Android 裝置的螢幕除了顯示 App 的畫面外，在螢幕的上方通常也會有一些保留給作業系統顯示圖示及資訊的區域，此外目前大多數的廠商在製造Android 裝置時已經逐漸取消真實按鍵，而改用螢幕上的虛擬按鍵代替，這些虛擬按鍵也會占用螢幕上的可用區域。在 Figure 1.3 中我們可以看到原本解析度為 800 * 1280 的螢幕因為下方已有三個虛擬按鍵，所以可供繪圖使用的區域只剩下 800*1098。您可以旋轉螢幕方向及使用不同的裝置來檢視其寬度及高度的可用像素。<br>
+Figure 1-1 及 Figure 1-2 展現的是原本解析度為 480 * 800 的手機螢幕在縱向與橫向時的可用像素。
+</p>
+<img class="figureP" src="jpg/Figure1_1.png" alt="Figure1-1" ><br>
+Figure 1-1<br>
+<img class="figureL" src="jpg/Figure1_2.png" alt="Figure1-2" ><br>
+Figure 1-2<br>
+<p>
+這個手機採用的作業系統是Android 4.2而且有真實的按鈕。所以在螢幕的下端並沒有 System Bar 及虛擬按鍵，不過螢幕的上端依然有Action Bar 及程式標題欄(window title)。這些系統的顯示區多多少少會占用掉一些顯示空間。在螢幕為縱向時看起來可能還好，可是當你把螢幕轉成橫向時，這些區域所占的比率顯然就有點大了。所以低解析度的螢幕較不利在橫向時顯示完整資料，因為就算沒有虛擬按鍵的情況下也已經損失了超過20%的顯示空間了。<br>
+Figure 1-3 及 1-4分别展現真實解析度為 800 * 1200 的平板螢幕在縱向與橫向時的可用像素。
+</p>
+<img class="figureP" src="jpg/Figure1_3.png" alt="Figure1-3" ><br>
+Figure 1-3<br>
+<img class="figureL" src="jpg/Figure1_4.png" alt="Figure1-4" ><br>
+Figure 1-4<br>
+<p>
+這個平板所採用的作業系統是 Android 4.3 除了螢幕頂端有Action Bar 及程式標題外，螢幕的下端也有放置虛擬按鍵的System Bar。所以被作業系統占用像素較多，不過由於螢幕的解析度較高，所以被系統占用的比率雖然同樣也是超過 20%。可是高度仍有 618 像素可用，對資料的顯示影響就沒那麼大了。
+不過行動裝置的螢幕本來就不大，所以很多程式設計師會對顯示空間斤斤計較。在開發 APP 時往往會將螢幕頂端的Action Bar及程式標題隱藏起來，這樣就可釋放出不少可用的顯示空間，特別是有必要使用橫向的顯示畫面時。<br> 
+<br>
+開發 Android App 時我們根本就不可能去預測或規定使用者將來所會使用的Android裝置螢幕的尺寸及解析度。因此繪圖時千萬不要直接指定像素的真實座標，而是要改用邏輯座標轉換的方式。也就是僅量以螢幕高度及寬度的百分比來間接的指定繪圖物件的尺寸。<br>
+螢幕規格種類太過複雜可能是 Android 開發人員最令人困擾的事了，關於這一點，開發其他作業系統程式的人員可能會覺得幸福多了。PC就不用說了，就算是 iOS 系統其螢幕的規格加一加也沒幾種，所以根本就不用去為邏輯座標轉換的問題傷腦筋。接下來我們就要介紹一下常用的幾種座標了。
+</p>
+</body>
+</html>

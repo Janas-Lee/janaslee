@@ -1,0 +1,33 @@
+body {
+  background-color: #ffffdd;
+  min-width: 800px;
+  width: expression(document.body.clientWidth < 780? "780px": "1024px" );
+}
+
+p {
+  width: 790px;
+}
+
+h1 {
+  color: blue;
+  font-size: 43px;	
+}
+
+.fig{
+	width:300px;  
+}
+
+.spage {
+  width:660px; 
+  height:824px;
+}
+
+.figureP {
+  width:241px; 
+  height:401px;	
+}
+
+.figureL {
+  width:401px; 
+  height:241px;	
+}
