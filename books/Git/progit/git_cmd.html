@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <title>Git 常用指令</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+	    color:#000000;
+	    background-color:#1199cc;
+	    margin:0;
+	    padding:1px; 
+      }
+	  .fs24{font-size: 24px; color:rgba(0,255,255,1)}
+	  .fs23{font-size: 23px;}
+      .fs22{font-size: 22px; color:rgba(0,255,16,1)}
+	  .fs21{font-size: 21px;}
+      .fs20{font-size: 20px; color:rgba(255,0,255,1)}
+	  .fs19{font-size: 19px;}
+	  .fs18{font-size: 18px; color:rgba(255,255,0,1)}
+	  .fs17{font-size: 17px;}
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+	  <h1>Git 常用指令</h1>
+	  <table>
+	    <tr><th>git --version </th><td> : 查看 Git 版本。</td></tr>
+	    <tr><th>git clone &lt;儲存網址&gt;</th><td> : 複製儲存內容。</td></tr>
+	    <tr><th>git config --list</th><td> : 列出 config 的內容。</td></tr>
+	    <tr><th>git config --list --show-origin</th><td> : 列出所有 config 的檔案及內容。</td></tr>
+	    <tr><th>git config --global user.name "John Doe"</th><td> : 設定使用者名稱為"John Doe"。</td></tr>
+		<tr><th>git config user.name</th><td> : 查看 config 中 user.name 的值。</td></tr>
+	    <tr><th>git config --global user.email johndoe@example.com</th><td> : 設定使用者 email 為 johndoe@example.com。</td></tr>
+	    <tr><th>git config --global core.editor emacs</th><td> : 設定要使用的文字編輯器為 emacs。</td></tr>
+	    <tr><th>git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"</th><td> : 設定 Notepad++ 為要使用的文字編輯器。</td></tr>
+	    <tr><th>git config --show-origin rerere.autoUpdate</th><td> : 查看 config 中 rerere.autoUpdate 的值是來自哪一個檔案。</td></tr>
+	    <tr><th>git help &lt;verb&gt;</th><td> : 列出 &lt;verb&gt; 的說明網頁</td></tr>
+	    <tr><th>git help config</th><td> : 列出 config 的說明網頁</td></tr>
+	    <tr><th>git init</th><td> : 啟動所在資料夾的 git 管控功能</td></tr>
+	    <tr><th>git add 檔名</th><td> : 將檔案加入 git 管控</td></tr>
+	    <tr><th>git commit -m '註解內容'</th><td> : 將變更簽入並加上註解</td></tr>
+	    <tr><th>git clone 網址</th><td> : 下載一個既存的 git repository</td></tr>
+	    <tr><th>git <verb> --help</th><td> : 列出 &lt;verb&gt; 的說明網頁</td></tr>
+	    <tr><th>man git-<verb></th><td> : 列出 &lt;verb&gt; 的說明網頁</td></tr>
+	    <tr><th>git help config</th><td> : 列出 config 的說明網頁</td></tr>
+	    <tr><th>git add -h</th><td> : 列出 add 的簡要說明</td></tr>
+	    <tr><th>git add *.c</th><td>:加入現有的 c 程式檔</td></tr>
+	    <tr><th>git add LICENSE</th><td>:加入 LICENSE 這個檔案</td></tr>
+	    <tr><th>git clone https://github.com/tester/projectname</th>  <td>:從 github 複製一個專案</td></tr>
+	    <tr><th>git clone https://github.com/tester/projectname dirname</th>  <td>:從 github 複製一個專案到指定的目錄</td></tr>
+	    <tr><th></th><td></td></tr>
+	    <tr><th></th><td></td></tr>
+	    <tr><th></th><td></td></tr>
+	    <tr><th></th><td></td></tr>
+	  </table>
+	</div>
+    github 帳號 : janaslee@gmail.com<br>
+	<pre>
+    		
+	
+	
+	
+	</pre>
+	<h1>Git 設定檔</h1>
+	<pre>
+	/etc/gitconfig file : 系統層級設定檔。使用 --system 參數來設定。通常放在 Git 的安裝目錄中。 
+	~/.gitconfig or ~/.config/git/config file : user 層級設定檔。使用 --global 參數來設定。通常是放在 Disc:\Users\$USER 目錄中。
+    .git/config : 專案層級設定檔。	
+	</pre>
+	
+  </body>
+</html>
