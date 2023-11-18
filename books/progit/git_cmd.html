@@ -71,13 +71,41 @@
 	    <tr><th>git log -p</th><td>顯示變更詳細紀錄</td></tr>
 	    <tr><th>git log --patch</th><td>顯示變更詳細紀錄</td></tr>
 	    <tr><th>git log -2</th><td>只顯示最後2筆變更紀錄</td></tr>
-	    <tr><th>git log --stat</th><td>顯示變更紀錄統計資料</td></tr>
-	    <tr><th></th><td></td></tr>
+	    <tr><th>git log --stat</th><td>顯示變更紀錄統計資料</td></tr>	    
+	    <tr><th>git log --oneline</th><td>將每次的變更紀錄顯示成一行</td></tr>
+		<tr><th>git log --pretty</th><td>格式化顯示變更紀錄資料</td></tr>
+	    <tr><th>git log --pretty=short</th><td>將變更紀錄以最簡短的方式顯示</td></tr>
+		<tr><th>git log --pretty=full</th><td>將變更紀錄以簡短的方式顯示</td></tr>
+		<tr><th>git log --pretty=fuller</th><td>將變更紀錄以稍完整的簡短方式顯示</td></tr>
+	    <tr><th>git log --pretty=format:"%h - %an, %ar : %s"</th><td>將變更紀錄以 hash - Author name, relative date : Subject 的格式顯示</td></tr>
 	    <tr><th></th><td></td></tr>
 	    <tr><th>man gitignore</th><td> : 列出 &lt;gitignore&gt; 的說明網頁</td></tr>
 		<tr><th>man git-&lt;verb&gt;</th><td> : 列出 &lt;verb&gt; 的說明網頁</td></tr>
 		<tr><th></th><td></td></tr>
 	  </table>
+	  <h1>Table 1. Useful options for git log --pretty=format</h1>
+	  <table>
+	    <tr><th>Option</th><th>Description of Output</th></tr>	    
+		<tr><td>%H</td><td>Commit hash</td></tr>
+        <tr><td>%h</td><td>Abbreviated commit hash</td></tr>
+        <tr><td>%T</td><td>Tree hash</td></tr>
+        <tr><td>%t</td><td>Abbreviated tree hash</td></tr>
+        <tr><td>%P</td><td>Parent hashes</td></tr>
+        <tr><td>%p</td><td>Abbreviated parent hashes</td></tr>
+        <tr><td>%an</td><td>Author name</td></tr>
+        <tr><td>%ae</td><td>Author email</td></tr>
+        <tr><td>%ad</td><td>Author date (format respects the --date=option)</td></tr>
+        <tr><td>%ar</td><td>Author date, relative</td></tr>
+        <tr><td>%cn</td><td>Committer name</td></tr>
+        <tr><td>%ce</td><td>Committer email</td></tr>
+        <tr><td>%cd</td><td>Committer date</td></tr>
+        <tr><td>%cr</td><td>Committer date, relative</td></tr>
+        <tr><td>%s</td><td>Subject</td></tr>
+		<tr><td></td><td></td></tr>
+	    <tr><td></td><td></td></tr>
+	    <tr><td></td><td></td></tr>
+	  </table>
+	  
 	</div>
     
 	<pre>
