@@ -27,6 +27,39 @@
 	.fs19{font-size: 19px;}
 	.fs18{font-size: 18px; color:rgba(255,255,16,1)}
 	.fs17{font-size: 17px;}
+	.tbl1 {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+    .tbl1 td, .tbl1 th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .tbl1 tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+	
+	#janas_here {
+      width: 50%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      
+    }
+
+   #janas_header {
+      background-color: #4CAF66;
+      color: white;
+      padding: 10px;
+      font-size: 14px;	  
+    }
+
+    #janas_container {
+	  background-color: #6AAF66;
+      padding: 10px;
+	  text-align: center;
+    }
+
   </style>
 </head>
 <body>
@@ -173,6 +206,25 @@
 	      <b class="fs20">Skipping the Staging Area</b><br>
 	      <b class="fs20">Removing Files</b><br>
 		<b class="fs22">Viewing the Commit History</b><br>
+		  Table 1. Useful options for git log --pretty=format<br>
+          <table class="tbl1">
+	        <tr><th>Option</th><th>Description of Output</th></tr>	    
+		    <tr><td>%H</td><td>Commit hash</td></tr>
+            <tr><td>%h</td><td>Abbreviated commit hash</td></tr>
+            <tr><td>%T</td><td>Tree hash</td></tr>
+            <tr><td>%t</td><td>Abbreviated tree hash</td></tr>
+            <tr><td>%P</td><td>Parent hashes</td></tr>
+            <tr><td>%p</td><td>Abbreviated parent hashes</td></tr>
+            <tr><td>%an</td><td>Author name</td></tr>
+            <tr><td>%ae</td><td>Author email</td></tr>
+            <tr><td>%ad</td><td>Author date (format respects the --date=option)</td></tr>
+            <tr><td>%ar</td><td>Author date, relative</td></tr>
+            <tr><td>%cn</td><td>Committer name</td></tr>
+            <tr><td>%ce</td><td>Committer email</td></tr>
+            <tr><td>%cd</td><td>Committer date</td></tr>
+            <tr><td>%cr</td><td>Committer date, relative</td></tr>
+            <tr><td>%s</td><td>Subject</td></tr>
+	      </table> 		  
 		  <b class="fs20"></b><br> 
 		<b class="fs22"></b><br>
 	      <b class="fs20"></b><br>  
@@ -194,24 +246,32 @@
 		craft [kræft] vt.精巧地製作<br>
 		chronological [͵krɑnəˋlɑdʒɪk!] adj.依時間前後排列而記載的<br>
 		stats [stæts] abbr.= statistics<br>
+		distinction [dɪˋstɪŋkʃən] n.區別；差別<br>
       </div>    
     </div>
-  <div id="janas_here">    
-	<pre>	
+  <div id="janas_here" >    
+	
+	
+	  
+  <div id="janas_header">
+    <pre>	
 Git Basics
   Getting a Git Repository
   Recording Changes to the Repository
   Viewing the Commit History
-  Undoing Things. . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 46
-  Working with Remotes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
-  Tagging . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 54
-  Git Aliases . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 59
-  Summary . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 61
-	</pre>
-	<b class="fs19">Janas  2023/10/09</b>
+  Undoing Things. . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 46
+  Working with Remotes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+  Tagging . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 54
+  Git Aliases . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 59
+  Summary . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 61
+	</pre>    
   </div>
-  
-  
+
+  <div id="janas_container">
+    <b class="fs19">Janas  2023/11/25</b>
+  </div>
+</div>
+
     <div class="row" id="Ch03">
       <div class="col-sm-8">
         <h2></h2>
@@ -228,7 +288,7 @@ Git Basics
     <div class="col-sm-6">
       <h2>Symbols</h2>
     <p></p>            
-    <table class="table table-striped">
+    <table class="tbl1">
       <thead>
         <tr>
           <th>Symbol</th><th>Name</th><th>Code</th>
@@ -349,9 +409,9 @@ Distributed Git. . . . . . . . . . . . . . . . . . . .  . . . . . . . . . .. . .
   Maintaining a Project . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149
   Summary . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 164
 GitHub. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . 165
-  Account Setup and Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 165
-  Contributing to a Project . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 170
-  Maintaining a Project . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . 190
+  Account Setup and Configuration . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . 165
+  Contributing to a Project . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . 170
+  Maintaining a Project . . . . . . . . . . . . . . . .. . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . 190
   Managing an organization. . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 205
   Scripting GitHub . . . . . . . . . . . . . . . . . .  . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . 208
   Summary . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 217
